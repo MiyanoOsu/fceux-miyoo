@@ -7,11 +7,11 @@
 - Update lastest source code.
 #How to build
 You will need linux base on debian, toolchain for miyoo
-```
+`
 cd /where/source/place
 #type
 make
-```
+`
  -------------------------------------------------------------
  FCEU320 v0.3 
  FCEUX port for OpenDingux
