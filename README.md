@@ -10,7 +10,6 @@ You will need linux base on debian, toolchain for miyoo
 
 ```
 cd /where/source/place
-#type
 make
 
 ```
