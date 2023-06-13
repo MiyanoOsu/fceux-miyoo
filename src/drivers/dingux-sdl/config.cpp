@@ -413,9 +413,7 @@ void UpdateEMUCore(Config *config) {
 //	FCEUI_SetVidSystem(flag ? 1 : 0);
 
 	config->getOption("SDL.Region", &id);
-	if(id==0)	{dendy=0;FCEUI_SetVidSystem(0);}
-	else if(id==1)	{dendy=0;FCEUI_SetVidSystem(1);}
-	else  		{dendy=1;FCEUI_SetVidSystem(0);}
+	FCEUI_SetRegion(id,1);
 
 	config->getOption("SDL.GameGenie", &flag);
 	FCEUI_SetGameGenie(flag ? 1 : 0);

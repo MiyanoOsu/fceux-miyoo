@@ -1082,6 +1082,7 @@ void FCEUI_SetRenderedLines(int ntscf, int ntscl, int palf, int pall) {
 	}
 }
 
+
 void FCEUI_SetVidSystem(int a) {
 	FSettings.PAL = a ? 1 : 0;
 	if (GameInfo) {
@@ -1090,6 +1091,7 @@ void FCEUI_SetVidSystem(int a) {
 		FCEUD_VideoChanged();
 	}
 }
+
 
 int FCEUI_GetCurrentVidSystem(int *slstart, int *slend) {
 	if (slstart)

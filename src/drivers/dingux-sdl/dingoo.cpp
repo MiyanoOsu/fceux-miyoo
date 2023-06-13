@@ -219,9 +219,7 @@ int LoadGame(const char *path) {
 */
 	int id;
 	g_config->getOption("SDL.Region", &id);
-	if(id ==0) 	{dendy=0;FCEUI_SetVidSystem(0);}
-	else if(id ==1) {dendy=0;FCEUI_SetVidSystem(1);}
-	else 		{dendy=1;FCEUI_SetVidSystem(0);}
+	FCEUI_SetRegion(id,1);
 
 	std::string filename;
 	g_config->getOption("SDL.Sound.RecordFile", &filename);
