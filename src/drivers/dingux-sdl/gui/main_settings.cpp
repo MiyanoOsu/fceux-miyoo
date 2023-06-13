@@ -158,11 +158,11 @@ int RunMainSettings() {
 	int done = 0, y, i;
 
 #ifdef FRAMESKIP
-	int max_entries = 9;
 	int menu_size = 9;
+	int max_entries = 9;
 #else
-	int max_entries = 8;
 	int menu_size = 8;
+	int max_entries = 8;
 #endif
 
 	static int offset_start = 0;
@@ -261,6 +261,7 @@ int RunMainSettings() {
 					sprintf(tmp, "%s", region_tag[itmp]);
 #ifdef FRAMESKIP
 				} else if (!strncmp(st_menu[i].name, "Frameskip", 9)) {
+          
 					if (itmp<0)
 						sprintf(tmp, "%s", "Auto");
 					else
@@ -275,10 +276,10 @@ int RunMainSettings() {
 			DrawText(gui_screen, st_menu[index].info, 8, 225);
 
 			// Draw offset marks
-			if (offset_start > 0)
-				DrawChar(gui_screen, SP_UPARROW, 274, 62);
-			if (offset_end < menu_size)
-				DrawChar(gui_screen, SP_DOWNARROW, 274, 203);
+			//if (offset_start > 0)
+			// DrawChar(gui_screen, SP_UPARROW, 274, 62);
+			//if (offset_end < menu_size)
+			// DrawChar(gui_screen, SP_DOWNARROW, 274, 203);
 
 			g_dirty = 0;
 		}
