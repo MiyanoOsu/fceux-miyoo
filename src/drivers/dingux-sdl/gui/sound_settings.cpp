@@ -261,10 +261,10 @@ int RunSoundSettings() {
 			DrawText(gui_screen, sd_menu[index].info, 8, 225);
 
 			// Draw offset marks
-			if (offset_start > 0)
-				DrawChar(gui_screen, SP_UPARROW, 218, 57);
-			if (offset_end < menu_size)
-				DrawChar(gui_screen, SP_DOWNARROW, 218, 197);
+			//if (offset_start > 0)
+			// DrawChar(gui_screen, SP_UPARROW, 218, 57);
+			//if (offset_end < menu_size)
+			// DrawChar(gui_screen, SP_DOWNARROW, 218, 197);
 
 			g_dirty = 0;
 		}

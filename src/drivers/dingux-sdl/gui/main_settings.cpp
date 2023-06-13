@@ -102,7 +102,7 @@ static void mouse_update(unsigned long key) {
 }
 
 // Frameskip
-#if 0 //def FRAMESKIP
+#ifdef FRAMESKIP
 static void frameskip_update(unsigned long key) {
 	int val;
 	g_config->getOption("SDL.Frameskip", &val);
@@ -146,7 +146,7 @@ static SettingEntry
 		{ "Show FPS", "Show frames per second", "SDL.ShowFPS", showfps_update },
 		{ "Show mouse", "Show/hide mouse cursor", "SDL.ShowMouseCursor", show_mouse_update },
 		{ "Mouse speed", "Mouse cursor speed", "SDL.MouseSpeed", mouse_update },
-#if 0 //def FRAMESKIP
+#ifdef FRAMESKIP
 		{ "Frameskip", "Frameskip [0-9]", "SDL.Frameskip", frameskip_update},
 #endif
 		{ "Custom palette", "Load custom palette", "SDL.Palette", custom_update },
@@ -157,11 +157,12 @@ int RunMainSettings() {
 	static int spy = 72;
 	int done = 0, y, i;
 
-	int max_entries = 8;
-#if 0 //def FRAMESKIP
+#ifdef FRAMESKIP
 	int menu_size = 9;
+	int max_entries = 9;
 #else
 	int menu_size = 8;
+	int max_entries = 8;
 #endif
 
 	static int offset_start = 0;
@@ -258,6 +259,11 @@ int RunMainSettings() {
 					sprintf(tmp, "%d", itmp);
 				} else if (!strncmp(st_menu[i].name, "Region", 6)) {
 					sprintf(tmp, "%s", region_tag[itmp]);
+#ifdef FRAMESKIP
+				} else if (!strncmp(st_menu[i].name, "Frameskip", 9)) {
+					if (itmp<0) sprintf(tmp,"%s","Auto");
+					else sprintf(tmp, "%d", itmp);
+#endif
 				} else
 					sprintf(tmp, "%s", itmp ? "on" : "off");
 				DrawText(gui_screen, tmp, 210, y);
@@ -267,10 +273,10 @@ int RunMainSettings() {
 			DrawText(gui_screen, st_menu[index].info, 8, 225);
 
 			// Draw offset marks
-			if (offset_start > 0)
-				DrawChar(gui_screen, SP_UPARROW, 274, 62);
-			if (offset_end < menu_size)
-				DrawChar(gui_screen, SP_DOWNARROW, 274, 203);
+			//if (offset_start > 0)
+			// DrawChar(gui_screen, SP_UPARROW, 274, 62);
+			//if (offset_end < menu_size)
+			// DrawChar(gui_screen, SP_DOWNARROW, 274, 203);
 
 			g_dirty = 0;
 		}
