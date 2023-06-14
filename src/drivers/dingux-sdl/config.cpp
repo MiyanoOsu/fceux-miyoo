@@ -127,7 +127,7 @@ Config * InitConfig() {
 	config->addOption("soundrate", "SDL.Sound.Rate", 32000);
 	config->addOption("soundq", "SDL.Sound.Quality", 0);
 	config->addOption("soundrecord", "SDL.Sound.RecordFile", "");
-	config->addOption("soundbufsize", "SDL.Sound.BufSize", 50);
+	config->addOption("soundbufsize", "SDL.Sound.BufSize", 80);
 	config->addOption("lowpass", "SDL.Sound.LowPass", 0);
 
 	config->addOption('g', "gamegenie", "SDL.GameGenie", 0);

@@ -45,7 +45,7 @@ static void newppu_update(unsigned long key)
 
 	g_config->setOption("SDL.NewPPU", val);
 }
-
+/*
 // NTSC TV's colors
 static void ntsc_update(unsigned long key)
 {
@@ -56,7 +56,7 @@ static void ntsc_update(unsigned long key)
 
 	g_config->setOption("SDL.NTSCpalette", val);
 }
-
+*/
 // NTSC Tint
 static void tint_update(unsigned long key)
 {
@@ -137,7 +137,7 @@ static SettingEntry vd_menu[] =
 	{"Video scaling", "Select video scale mode", "SDL.Fullscreen", fullscreen_update},
 	{"Clip sides", "Clips left and right columns", "SDL.ClipSides", clip_update},
 	{"New PPU", "New PPU emulation engine", "SDL.NewPPU", newppu_update},
-	{"NTSC Palette", "Emulate NTSC TV's colors", "SDL.NTSCpalette", ntsc_update},
+	//{"NTSC Palette", "Emulate NTSC TV's colors", "SDL.NTSCpalette", ntsc_update},
 	{"Tint", "Sets tint for NTSC color", "SDL.Tint", tint_update},
 	{"Hue", "Sets hue for NTSC color", "SDL.Hue", hue_update},
 	{"NTSC Scanline start", "NTSC first drawn scanline", "SDL.ScanLineStartNTSC", slstart_update},
@@ -165,13 +165,13 @@ int RunVideoSettings()
 				index--; 
 				spy -= 15;
 			} else {
-				index = 9;
+				index = 8;
 				spy = 72 + 15*index;
 			}
 		}
 
 		if (parsekey(DINGOO_DOWN, 1)) {
-			if (index < 9) {
+			if (index < 8) {
 				index++;
 				spy += 15;
 			} else {
@@ -202,7 +202,7 @@ int RunVideoSettings()
 			DrawText(gui_screen, "Video Settings", 8, 37); 
 
 			// Draw menu
-			for(i=0,y=72;i < 10;i++,y+=15) {
+			for(i=0,y=72;i < 9;i++,y+=15) {
 				DrawText(gui_screen, vd_menu[i].name, 60, y);
 		
 				g_config->getOption(vd_menu[i].option, &itmp);
@@ -211,7 +211,7 @@ int RunVideoSettings()
 				}
 				else if (!strncmp(vd_menu[i].name, "Clip sides", 10) \
 					|| !strncmp(vd_menu[i].name, "New PPU", 7)   \
-					|| !strncmp(vd_menu[i].name, "NTSC Palette", 12)) {
+					/*|| !strncmp(vd_menu[i].name, "NTSC Palette", 12)*/) {
 					sprintf(tmp, "%s", itmp ? "on" : "off");
 				}
 				else sprintf(tmp, "%d", itmp);
