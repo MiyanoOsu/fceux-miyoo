@@ -125,9 +125,9 @@ static void custom_update(unsigned long key) {
 	if (!RunFileBrowser(NULL, palname, types, "Choose nes palette (.pal)")) 
 	#endif
 	{
-		CloseGame();
+	/*	CloseGame();
 		SDL_Quit();
-		exit(-1);
+		exit(-1);*/
 	}
 
 	std::string cpalette = std::string(palname);

@@ -65,8 +65,8 @@ static void bufsize_update(unsigned long key) {
 	
 	g_config->getOption("SDL.Sound.BufSize", &val);
 
-	if (key == DINGOO_RIGHT) val = val <= 200 ? val + 10 : 10;
-	if (key == DINGOO_LEFT) val = val >= 10 ? val - 10 : 200;
+	if (key == DINGOO_RIGHT) val = val < 200 ? val + 10 : 0;
+	if (key == DINGOO_LEFT) val = val > 0 ? val - 10 : 200;
 
 	g_config->setOption("SDL.Sound.BufSize", val);
 }
