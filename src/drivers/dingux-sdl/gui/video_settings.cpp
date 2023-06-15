@@ -81,6 +81,28 @@ static void hue_update(unsigned long key)
 	g_config->setOption("SDL.Hue", val);
 }
 
+// Force Gray Scale
+static void forcegrayscale_update(unsigned long key)
+{
+	int val;
+
+	if (key == DINGOO_RIGHT) val = 1;
+	if (key == DINGOO_LEFT) val = 0;
+
+	g_config->setOption("SDL.ForceGrayScale", val);
+}
+
+// De-emphasis Bit Swap
+static void deemphbitswap_update(unsigned long key)
+{
+	int val;
+
+	if (key == DINGOO_RIGHT) val = 1;
+	if (key == DINGOO_LEFT) val = 0;
+
+	g_config->setOption("SDL.DeempBitSwap", val);
+}
+
 static void slstart_update(unsigned long key)
 {
 	int val;
@@ -140,6 +162,8 @@ static SettingEntry vd_menu[] =
 	//{"NTSC Palette", "Emulate NTSC TV's colors", "SDL.NTSCpalette", ntsc_update},
 	{"Tint", "Sets tint for NTSC color", "SDL.Tint", tint_update},
 	{"Hue", "Sets hue for NTSC color", "SDL.Hue", hue_update},
+	{"Force Grayscale","Force gray scale","SDL.ForceGrayScale", forcegrayscale_update},
+	{"De-emphasis Bit Swap","De-emphasis Bit Swap","SDL.DeempBitSwap", deemphbitswap_update},
 	{"NTSC Scanline start", "NTSC first drawn scanline", "SDL.ScanLineStartNTSC", slstart_update},
 	{"NTSC Scanline end", "NTSC last drawn scanline", "SDL.ScanLineEndNTSC", slend_update},
 	{"PAL Scanline start", "PAL first drawn scanline", "SDL.ScanLineStartPAL", slstartpal_update},
@@ -152,6 +176,12 @@ int RunVideoSettings()
 	static int spy = 72;
 	int done = 0, y, i;
 
+	int max_entries = 9;
+	int menu_size = 11;
+
+	static int offset_start = 0;
+	static int offset_end = menu_size > max_entries ? max_entries : menu_size;
+
 	char tmp[32];
 	int  itmp;
 
@@ -162,20 +192,38 @@ int RunVideoSettings()
 		if (parsekey(DINGOO_B)) done = 1;
    		if (parsekey(DINGOO_UP, 1)) {
 			if (index > 0) {
-				index--; 
-				spy -= 15;
+				index--;
+
+				if (index >= offset_start)
+					spy -= 15;
+
+				if ((offset_start > 0) && (index < offset_start)) {
+					offset_start--;
+					offset_end--;
+				}
 			} else {
-				index = 8;
-				spy = 72 + 15*index;
+				index = menu_size-1;
+				offset_end = menu_size;
+				offset_start = menu_size <= max_entries ? 0 : offset_end - max_entries;
+				spy = 72 + 15*(index - offset_start);
 			}
 		}
 
 		if (parsekey(DINGOO_DOWN, 1)) {
-			if (index < 8) {
+			if (index < (menu_size - 1)) {
 				index++;
-				spy += 15;
+
+				if (index < offset_end)
+					spy += 15;
+
+				if ((offset_end < menu_size) && (index >= offset_end)) {
+					offset_end++;
+					offset_start++;
+				}
 			} else {
 				index = 0;
+				offset_start = 0;
+				offset_end = menu_size <= max_entries ? menu_size : max_entries;
 				spy = 72;
 			}
 		}
@@ -202,7 +250,7 @@ int RunVideoSettings()
 			DrawText(gui_screen, "Video Settings", 8, 37); 
 
 			// Draw menu
-			for(i=0,y=72;i < 9;i++,y+=15) {
+			for(i = offset_start, y = 72; i < offset_end; i++, y += 15) {
 				DrawText(gui_screen, vd_menu[i].name, 60, y);
 		
 				g_config->getOption(vd_menu[i].option, &itmp);
@@ -211,7 +259,9 @@ int RunVideoSettings()
 				}
 				else if (!strncmp(vd_menu[i].name, "Clip sides", 10) \
 					|| !strncmp(vd_menu[i].name, "New PPU", 7)   \
-					/*|| !strncmp(vd_menu[i].name, "NTSC Palette", 12)*/) {
+					/*|| !strncmp(vd_menu[i].name, "NTSC Palette", 12) \*/
+					||!strncmp(vd_menu[i].name, "Force Grayscale", 15)	\
+					||!strncmp(vd_menu[i].name, "De-emphasis Bit Swap", 20)) {
 					sprintf(tmp, "%s", itmp ? "on" : "off");
 				}
 				else sprintf(tmp, "%d", itmp);
@@ -221,6 +271,12 @@ int RunVideoSettings()
 
 			// Draw info
 			DrawText(gui_screen, vd_menu[index].info, 8, 225);
+
+			// Draw offset marks
+			if (offset_start > 0)
+				DrawChar(gui_screen, SP_UPARROW, 218, 63);
+			if (offset_end < menu_size)
+				DrawChar(gui_screen, SP_DOWNARROW, 218, 209);
 
 			g_dirty = 0;
 		}

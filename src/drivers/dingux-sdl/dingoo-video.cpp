@@ -206,6 +206,12 @@ int InitVideo(FCEUGI *gi) {
 	return 0;
 }
 
+void InitGuiVideo() {
+	if (screen->w == 320 && screen->h == 240 && screen->flags & DINGOO_MULTIBUF) return;
+	// OpenDingux - SDL_VideoModeOK seems not to work in the new beta
+	screen = SDL_SetVideoMode(320, 240, 16, SDL_HWSURFACE | DINGOO_MULTIBUF);
+}
+
 /**
  * Toggles the full-screen display.
  */
