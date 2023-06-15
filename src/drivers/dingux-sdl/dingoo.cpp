@@ -47,6 +47,8 @@
 #include <windows.h>
 #endif
 
+extern void InitGuiVideo();
+
 extern double g_fpsScale;
 
 extern bool MaxSpeed;
@@ -88,7 +90,7 @@ int dendy;
 bool swapDuty;
 
 // originally in src/drivers/common/vidblit.cpp
-bool   paldeemphswap   = 0;
+int   paldeemphswap   = 0;
 
 char* DriverUsage = "\
 		Option         Value   Description\n\
@@ -758,6 +760,8 @@ int main(int argc, char *argv[]) {
 		char filename[128], romname[128];
 
 		InitVideo(0); inited |= 4; // Hack to init video mode before running gui
+		//Init screen to GUI Resolution
+		InitGuiVideo();
 
 		#ifdef WIN32
 		if (!RunFileBrowser("D:\\", filename, types)) {

@@ -11,6 +11,8 @@
 
 #include "font.h"
 
+#define OPTION_LABEL_COLUMN	60
+
 // ...
 extern SDL_Surface* screen;
 extern int RunFileBrowser(char *source, char *romname, const char *types[],
@@ -33,6 +35,7 @@ int g_slot = 0; // make it accessible from input.cpp
 static int g_romtype;
 static unsigned long g_key = 0, last_key;
 static int counter = 0;
+static uint8 *g_keyState = 0;
 
 void FCEUGUI_Flip()
 {
@@ -105,8 +108,11 @@ int update_time()
 }
 
 // Include additional files
+#include "gui_submenu.cpp"
 #include "file_browser.cpp"
 #include "settings_menu.cpp"
+#include "cheat_browser.cpp"
+
 
 /* MENU COMMANDS */
 
@@ -233,6 +239,10 @@ static int flip_disc() {
 	return 1;
 }
 
+static int enable_cheats(void) {
+	return RunCheatBrowser();
+}
+
 static int save_state() {
 	FCEUI_SaveState(NULL);
 	save_preview();
@@ -264,6 +274,7 @@ static MenuEntry main_menu[] = {
 		
 		{ "Reset", "Reset NES", reset_nes },
 		{ "Flip disc", "Switch side or disc (FDS)", flip_disc },
+		{ "Cheats", "Enable and import cheats", enable_cheats },
 		{ "Save state", "Save current state", save_state },
 		{ "Load state", "Load emulation state", load_state },
 		{ "Screenshot", "Save current frame shot", save_screenshot },
@@ -309,6 +320,8 @@ void FCEUGUI_Reset(FCEUGI *gi) {
 	g_romtype = gi->type;
 }
 
+extern void InitGuiVideo();
+
 void FCEUGUI_Kill() {
 	// free stuff
 	if (g_bg)
@@ -338,13 +351,13 @@ void FCEUGUI_Run() {
 				index--;
 				spy -= 16;
 			} else {
-				index = 6;
+				index = 7;
 				spy = 72 + 16*index;
 			}
 		}
 
 		if (parsekey(DINGOO_DOWN, 0)) {
-			if (index < 6) {
+			if (index < 7) {
 				index++;
 				spy += 16;
 			} else {
@@ -355,10 +368,10 @@ void FCEUGUI_Run() {
 
 		if (parsekey(DINGOO_A)) {
 			done = main_menu[index].command();
-			if(index == 2) load_preview();
+			if(index == 3) load_preview();
 		}
 
-		if (index == 2 || index == 3) {
+		if (index == 3 || index == 4) {
 			if (parsekey(DINGOO_RIGHT, 0)) {
 				if (g_slot < 9) {
 					g_slot++;
@@ -393,7 +406,7 @@ void FCEUGUI_Run() {
 			DrawChar(gui_screen, SP_SELECTOR, 56, spy);
 			DrawChar(gui_screen, SP_SELECTOR, 77, spy);
 
-			if (index == 2 || index == 3) {
+			if (index == 3 || index == 4) {
 				// Draw state preview
 				DrawChar(gui_screen, SP_PREVIEWBLOCK, 184, 73);
 				draw_preview((unsigned short *)gui_screen->pixels, 185, 100);
@@ -401,7 +414,7 @@ void FCEUGUI_Run() {
 					DrawChar(gui_screen, SP_NOPREVIEW, 207, 135);
 			}
 
-			if (index == 4) {
+			if (index == 5) {
 				DrawChar(gui_screen, SP_PREVIEWBLOCK, 184, 73);
 				draw_shot_preview((unsigned short *)gui_screen->pixels, 185, 100);
 			}
@@ -410,7 +423,7 @@ void FCEUGUI_Run() {
 			DrawText(gui_screen, g_romname, 96, 37);
 
 			// Draw menu
-			for (i = 0, y = 72; i < 7; i++, y += 16) {
+			for (i = 0, y = 72; i < 8; i++, y += 16) {
 				DrawText(gui_screen, main_menu[i].name, 60, y);
 			}
 
@@ -418,7 +431,7 @@ void FCEUGUI_Run() {
 			DrawText(gui_screen, main_menu[index].info, 8, 225);
 
 			// If save/load state render slot preview and number
-			if (index == 2 || index == 3) {
+			if (index == 3 || index == 4) {
 				char tmp[32];
 				sprintf(tmp, "Slot %d", g_slot);
 				DrawText(gui_screen, tmp, 212, 80);
@@ -430,7 +443,7 @@ void FCEUGUI_Run() {
 			}
 
 			// If screenshot render current frame preview
-			if (index == 4) {
+			if (index == 5) {
 				DrawText(gui_screen, "Preview", 207, 80);
 			}
 

@@ -40,7 +40,7 @@
 #include <cmath>
 #include <cstring>
 
-bool force_grayscale = false;
+int force_grayscale = 0;
 pal *grayscaled_palo = NULL;
 
 pal palette_game[64*8]; //custom palette for an individual game. (formerly palettei)

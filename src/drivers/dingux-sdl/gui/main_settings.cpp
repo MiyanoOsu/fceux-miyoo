@@ -67,6 +67,16 @@ static void throttle_update(unsigned long key) {
 	g_config->setOption("SDL.FPSThrottle", val);
 }
 
+static void integer_framerate_update(unsigned long key)
+{
+	bool val;
+
+	if (key == DINGOO_RIGHT) val = 1;
+	if (key == DINGOO_LEFT) val = 0;
+
+	g_config->setOption("SDL.IntFrameRate", val);
+}
+
 static void showfps_update(unsigned long key) {
 	int val;
 
@@ -143,6 +153,7 @@ static SettingEntry
 		{ "Game Genie", "Emulate Game Genie", "SDL.GameGenie", gg_update },
 		{ "No sprite limit", "Disable sprite limit", "SDL.DisableSpriteLimit", sprite_limit_update },
 		{ "FPS Throttle", "Use fps throttling", "SDL.FPSThrottle", throttle_update },
+		{ "Integer Frame Rate","Use Integer Frame Rate","SDL.IntFrameRate",integer_framerate_update},
 		{ "Show FPS", "Show frames per second", "SDL.ShowFPS", showfps_update },
 		{ "Show mouse", "Show/hide mouse cursor", "SDL.ShowMouseCursor", show_mouse_update },
 		{ "Mouse speed", "Mouse cursor speed", "SDL.MouseSpeed", mouse_update },
@@ -158,11 +169,11 @@ int RunMainSettings() {
 	int done = 0, y, i;
 
 #ifdef FRAMESKIP
-	int menu_size = 9;
+	int menu_size = 10;
 	int max_entries = 9;
 #else
-	int menu_size = 8;
-	int max_entries = 8;
+	int menu_size = 9;
+	int max_entries = 9;
 #endif
 
 	static int offset_start = 0;
@@ -276,10 +287,10 @@ int RunMainSettings() {
 			DrawText(gui_screen, st_menu[index].info, 8, 225);
 
 			// Draw offset marks
-			//if (offset_start > 0)
-			// DrawChar(gui_screen, SP_UPARROW, 274, 62);
-			//if (offset_end < menu_size)
-			// DrawChar(gui_screen, SP_DOWNARROW, 274, 203);
+			if (offset_start > 0)
+				DrawChar(gui_screen, SP_UPARROW, 218, 63);
+			if (offset_end < menu_size)
+				DrawChar(gui_screen, SP_DOWNARROW, 218, 209);
 
 			g_dirty = 0;
 		}

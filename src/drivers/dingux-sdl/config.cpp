@@ -26,6 +26,9 @@
 #include <windows.h>
 #endif
 
+extern int force_grayscale;
+extern int paldeemphswap;
+
 /**
  * Read a custom pallete from a file and load it into the core.
  */
@@ -134,6 +137,7 @@ Config * InitConfig() {
 	config->addOption("region", "SDL.Region", 0);
 	//config->addOption("pal", "SDL.PAL", 0);
 	config->addOption("frameskip", "SDL.Frameskip", 0);
+	config->addOption("intFrameRate", "SDL.IntFrameRate", 0);
 	config->addOption("clipsides", "SDL.ClipSides", 0);
 	config->addOption("nospritelim", "SDL.DisableSpriteLimit", 1);
 
@@ -141,6 +145,8 @@ Config * InitConfig() {
 	config->addOption('p', "palette", "SDL.Palette", "");
 	config->addOption("tint", "SDL.Tint", 56);
 	config->addOption("hue", "SDL.Hue", 72);
+	config->addOption("SDL.ForceGrayScale", 0);
+	config->addOption("SDL.DeempBitSwap", 0);
 	config->addOption("ntsccolor", "SDL.NTSCpalette", 0);
 
 	// scanline settings
@@ -404,6 +410,10 @@ void UpdateEMUCore(Config *config) {
 	config->getOption("SDL.Hue", &ntschue);
 	FCEUI_SetNTSCTH(ntsccol, ntsctint, ntschue);
 
+	config->getOption("SDL.IntFrameRate"  , &useIntFrameRate);
+	config->getOption("SDL.ForceGrayScale", &force_grayscale);
+	config->getOption("SDL.DeempBitSwap"  , &paldeemphswap);
+	
 	config->getOption("SDL.Palette", &cpalette);
 	if (cpalette.size()) {
 		LoadCPalette(cpalette);
