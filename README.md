@@ -1,6 +1,6 @@
 # FCEUX for miyoo base on fceux 2.6.5 - 07 Feb 2023
 
-An update of fceux which exist on MiyooCFW v1.3.3
+An build of fceux version 2.6.5 port for miyoo devices
 
 # Changes log
 - Keymap for Q90/V90
@@ -16,7 +16,6 @@ An update of fceux which exist on MiyooCFW v1.3.3
 - Add force grayscale
 - Add de-emphasis bit swap
 - Rewrite fps throttle code
-- Update core from Fceux 2.2.3 to 2.6.5
 
 *Note: Fceux 2.5.6 have overclocking, but i see nothing effect for performance on miyoo device, so i don't add option to menu to enable/disable. Maybe in MiyooCFW 2.0 it will useful ?
 
