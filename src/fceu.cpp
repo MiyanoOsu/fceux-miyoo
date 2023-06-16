@@ -101,7 +101,7 @@ using namespace std;
 // doesn't work with new PPU
 bool overclock_enabled = 0;
 bool overclocking = 0;
-bool skip_7bit_overclocking = 0; // 7-bit samples have priority over overclocking
+bool skip_7bit_overclocking = 1; // 7-bit samples have priority over overclocking
 int normalscanlines;
 int totalscanlines;
 int postrenderscanlines = 0;
