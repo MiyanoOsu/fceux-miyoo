@@ -1,6 +1,6 @@
 # FCEUX for miyoo base on fceux 2.6.5 - 07 Feb 2023
 
-An build of fceux version 2.6.5 port for miyoo devices
+A build of fceux version 2.6.5 port for miyoo devices
 
 # Changes log
 - Keymap for Q90/V90
@@ -17,7 +17,7 @@ An build of fceux version 2.6.5 port for miyoo devices
 - Add de-emphasis bit swap
 - Rewrite fps throttle code
 
-*Note: Fceux 2.5.6 have overclocking, but i see nothing effect for performance on miyoo device, so i don't add option to menu to enable/disable. Maybe in MiyooCFW 2.0 it will useful ?
+*Note: Fceux 2.6.5 have overclocking, but i see nothing effect for performance on miyoo device, so i don't add option to menu to enable/disable. Maybe in MiyooCFW 2.0 it will useful ?
 
 Please report problem exist on this build, i will improve.
 
