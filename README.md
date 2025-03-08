@@ -17,15 +17,20 @@ A build of fceux version 2.6.5 port for miyoo devices
 - Add de-emphasis bit swap
 - Rewrite fps throttle code
 
-*Note: Fceux 2.6.5 have overclocking, but i see nothing effect for performance on miyoo device, so i don't add option to menu to enable/disable. Maybe in MiyooCFW 2.0 it will useful ?
-
 Please report problem exist on this build, i will improve.
 
+Because fceux sometimes laggy and glitch so i add downgrade version, check source code on branchs, the binary on releases section "082324" 
+
 # How to build
-You will need linux base on debian, toolchain for miyoo
+You will need linux base on debian or arch linux, docker, toolchain for miyoo
 
 ```
-cd /where/source/place
-make
+# run below command if first time use docker
+docker pull miyoocfw/toolchain-shared-uclibc:latest
+
+# command to use toolchain
+docker run --volume ./:/src/ -it miyoocfw/toolchain-shared-uclibc:latest
+cd src
+make -j $(nproc)
 
 ```
