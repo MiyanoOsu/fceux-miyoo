@@ -2,7 +2,7 @@
 PROFILE=APPLY
 LTO = -flto
 
-CROSS_COMPILE := /opt/miyoo/bin/arm-linux-
+CROSS_COMPILE := arm-linux-
 
 CC = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
@@ -17,7 +17,7 @@ SRC = src/
 
 CORE_OBJS = \
 	$(SRC)cart.o $(SRC)cheat.o $(SRC)config.o $(SRC)movie.o $(SRC)oldmovie.o \
-	$(SRC)drawing.o $(SRC)fceu.o $(SRC)fds.o $(SRC)file.o $(SRC)conddebug.o \
+	$(SRC)drawing.o $(SRC)fceu.o $(SRC)fds.o $(SRC)file.o \
 	$(SRC)filter.o $(SRC)ines.o $(SRC)input.o $(SRC)debug.o $(SRC)wave.o \
 	$(SRC)nsf.o $(SRC)palette.o $(SRC)ppu.o $(SRC)sound.o $(SRC)state.o $(SRC)unif.o \
  	$(SRC)video.o $(SRC)vsuni.o $(SRC)x6502.o $(SRC)netplay.o $(SRC)emufile.o
@@ -245,7 +245,6 @@ CFLAGS += -DDINGUX \
 	  -DPSS_STYLE=1 \
 	  -DHAVE_ASPRINTF \
 	  #-DFRAMESKIP \
-	  -D_REENTRANT \
 	  -I$(INCLUDEDIR)/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 
 TARGET = bin/fceux.dge
