@@ -189,8 +189,8 @@ Config * InitConfig() {
 	config->addOption("mousespeed", "SDL.MouseSpeed", 3);
 	config->addOption("showmouse", "SDL.ShowMouseCursor", 0);
 
-	config->addOption("fpsthottle", "SDL.FPSThrottle", 0);
-	config->addOption("showfps", "SDL.ShowFPS", 1);
+	config->addOption("fpsthottle", "SDL.FPSThrottle", 1);
+	config->addOption("showfps", "SDL.ShowFPS", 0);
 
 	// input configuration options
 	config->addOption("input1", "SDL.Input.0", "GamePad.0");
