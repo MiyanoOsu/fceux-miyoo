@@ -247,13 +247,13 @@ CFLAGS += -DDINGUX \
 	  #-DFRAMESKIP \
 	  -I$(INCLUDEDIR)/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 
-TARGET = bin/fceux.dge
+TARGET = bin/fceux
 ifeq ($(PROFILE), YES)
 CFLAGS += -fprofile-generate=./profile
 LDFLAGS += -lgcov -fprofile-generate=./profile
 TARGET = bin/fceux_pm.dge
 else ifeq ($(PROFILE), APPLY)
-CFLAGS += -fprofile-use=./ -fbranch-probabilities
+CFLAGS += -fprofile-use=./profile -fbranch-probabilities
 endif
 CFLAGS += -fno-strict-aliasing
 
