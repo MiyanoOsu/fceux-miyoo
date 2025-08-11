@@ -1,6 +1,6 @@
 #PROFILE=YES
 PROFILE=APPLY
-LTO = -flto
+LTO =
 
 CROSS_COMPILE := arm-linux-
 
@@ -235,7 +235,7 @@ LDFLAGS = -s $(SDL_LIBS) -lSDL_image -lz -lm
 
 W_OPTS	= -Wno-write-strings -Wno-sign-compare
 
-F_OPTS = $(LTO) -fomit-frame-pointer -fno-builtin -fno-common
+F_OPTS = $(LTO) -fomit-frame-pointer -fno-builtin
 
 CC_OPTS	= -O2 -march=armv5te -mtune=arm926ej-s $(F_OPTS) $(W_OPTS) $(SDL_CFLAGS)
 
@@ -251,7 +251,7 @@ TARGET = bin/fceux
 ifeq ($(PROFILE), YES)
 CFLAGS += -fprofile-generate=./profile
 LDFLAGS += -lgcov -fprofile-generate=./profile
-TARGET = bin/fceux_pm.dge
+TARGET = bin/fceux_pm
 else ifeq ($(PROFILE), APPLY)
 CFLAGS += -fprofile-use=./profile -fbranch-probabilities
 endif
