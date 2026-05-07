@@ -17,9 +17,6 @@ A build of fceux version 2.6.5 port for miyoo devices
 - Add de-emphasis bit swap
 - Rewrite fps throttle code
 
-Please report problem exist on this build, i will improve.
-
-Because fceux sometimes laggy and glitch so i add downgrade version, check source code on branchs, the binary on releases section "082324" 
 
 # How to build
 You will need linux base on debian or arch linux, docker
