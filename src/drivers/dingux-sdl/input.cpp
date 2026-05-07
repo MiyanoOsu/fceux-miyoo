@@ -308,56 +308,56 @@ static void KeyboardCommands() {
 	}
 
 	// R shift + combokeys
-	if(ispressed(DINGOO_R)) {
-		extern int g_slot; // import from gui.cpp
-		void save_preview(); // import from gui.cpp
-		if(_keyonly(DINGOO_A)) { // R + A  save state
-			FCEUI_SelectState(g_slot, 0);
-			FCEUI_SaveState(NULL);
-			save_preview();
-			resetkey(DINGOO_A);
-		}
-		if(_keyonly(DINGOO_B)) { // R + B  load state
-			FCEUI_SelectState(g_slot, 0);
-			FCEUI_LoadState(NULL);
-			resetkey(DINGOO_B);
-		}
-		if(_keyonly(DINGOO_X)) { // R + X  toggle fullscreen
-			extern int s_fullscreen; // from dingoo_video.cpp
-			s_fullscreen = (s_fullscreen + 1) % 4;
-			g_config->setOption("SDL.Fullscreen", s_fullscreen);
-			dingoo_clear_video();
-			resetkey(DINGOO_X);
-		}
-		if(_keyonly(DINGOO_Y)) { // R + Y  flip fds disk
-			if(gametype == GIT_FDS) FCEUI_FDSFlip();
-			resetkey(DINGOO_Y);
-		}
-		if(_keyonly(DINGOO_UP)) { // R + UP tooggle fps show
-			extern int showfps; // from dingoo.cpp
-			showfps ^= 1;
-			g_config->setOption("SDL.ShowFPS", showfps);
-			resetkey(DINGOO_UP);
-		}
-		if(_keyonly(DINGOO_DOWN)) {// R + DOWN activate subtitle display (??) is this really needed
-			resetkey(DINGOO_DOWN);
-		}
-		if(_keyonly(DINGOO_LEFT)) { // R + LEFT  insert vsuini coin
-			if (gametype == GIT_VSUNI) FCEUI_VSUniCoin();
-			resetkey(DINGOO_LEFT);
-		}
-		if(_keyonly(DINGOO_RIGHT)) { // R + RIGHT  frame advancing (??)
-			resetkey(DINGOO_RIGHT);
-		}
-		if(_keyonly(DINGOO_SELECT)) { // R + SELECT
-			FCEUI_SaveSnapshot();
-			resetkey(DINGOO_SELECT);
-		}
-		if(_keyonly(DINGOO_START)) { // R + START  pause emulation
-			FCEUI_ToggleEmulationPause();
-			resetkey(DINGOO_START);
-		}
-	}
+	// if(ispressed(DINGOO_R)) {
+	// 	extern int g_slot; // import from gui.cpp
+	// 	void save_preview(); // import from gui.cpp
+	// 	if(_keyonly(DINGOO_A)) { // R + A  save state
+	// 		FCEUI_SelectState(g_slot, 0);
+	// 		FCEUI_SaveState(NULL);
+	// 		save_preview();
+	// 		resetkey(DINGOO_A);
+	// 	}
+	// 	if(_keyonly(DINGOO_B)) { // R + B  load state
+	// 		FCEUI_SelectState(g_slot, 0);
+	// 		FCEUI_LoadState(NULL);
+	// 		resetkey(DINGOO_B);
+	// 	}
+	// 	if(_keyonly(DINGOO_X)) { // R + X  toggle fullscreen
+	// 		extern int s_fullscreen; // from dingoo_video.cpp
+	// 		s_fullscreen = (s_fullscreen + 1) % 4;
+	// 		g_config->setOption("SDL.Fullscreen", s_fullscreen);
+	// 		dingoo_clear_video();
+	// 		resetkey(DINGOO_X);
+	// 	}
+	// 	if(_keyonly(DINGOO_Y)) { // R + Y  flip fds disk
+	// 		if(gametype == GIT_FDS) FCEUI_FDSFlip();
+	// 		resetkey(DINGOO_Y);
+	// 	}
+	// 	if(_keyonly(DINGOO_UP)) { // R + UP tooggle fps show
+	// 		extern int showfps; // from dingoo.cpp
+	// 		showfps ^= 1;
+	// 		g_config->setOption("SDL.ShowFPS", showfps);
+	// 		resetkey(DINGOO_UP);
+	// 	}
+	// 	if(_keyonly(DINGOO_DOWN)) {// R + DOWN activate subtitle display (??) is this really needed
+	// 		resetkey(DINGOO_DOWN);
+	// 	}
+	// 	if(_keyonly(DINGOO_LEFT)) { // R + LEFT  insert vsuini coin
+	// 		if (gametype == GIT_VSUNI) FCEUI_VSUniCoin();
+	// 		resetkey(DINGOO_LEFT);
+	// 	}
+	// 	if(_keyonly(DINGOO_RIGHT)) { // R + RIGHT  frame advancing (??)
+	// 		resetkey(DINGOO_RIGHT);
+	// 	}
+	// 	if(_keyonly(DINGOO_SELECT)) { // R + SELECT
+	// 		FCEUI_SaveSnapshot();
+	// 		resetkey(DINGOO_SELECT);
+	// 	}
+	// 	if(_keyonly(DINGOO_START)) { // R + START  pause emulation
+	// 		FCEUI_ToggleEmulationPause();
+	// 		resetkey(DINGOO_START);
+	// 	}
+	// }
 
 	/*
 	 // Toggle Movie auto-backup

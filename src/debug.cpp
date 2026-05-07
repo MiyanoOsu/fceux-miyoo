@@ -965,3 +965,24 @@ void DebugCycle()
 
 	FCEUD_TraceInstruction(opcode, size);
 }
+
+#include <string>
+
+void FCEUD_DebugBreakpoint(int bp_num) {}
+void FCEUD_TraceInstruction(unsigned char *opcode, int size) {}
+
+struct Condition; 
+Condition* generateCondition(const char* c) { return nullptr; }
+void freeTree(Condition* c) {}
+
+unsigned char debugLastOpcode = 0;
+unsigned short debugLastAddress = 0;
+
+debugSymbolTable_t::debugSymbolTable_t() {}
+debugSymbolTable_t::~debugSymbolTable_t() {}
+
+debugSymbol_t* debugSymbolTable_t::getSymbolAtAnyBank(const std::string& name) {
+    return nullptr; 
+}
+
+debugSymbolTable_t debugSymbolTable;

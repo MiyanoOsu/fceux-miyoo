@@ -1,5 +1,5 @@
-#PROFILE=YES
-PROFILE=APPLY
+#PGO=YES
+PGO=APPLY
 LTO =
 
 CROSS_COMPILE := arm-linux-
@@ -248,11 +248,11 @@ CFLAGS += -DDINGUX \
 	  -I$(INCLUDEDIR)/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 
 TARGET = bin/fceux
-ifeq ($(PROFILE), YES)
+ifeq ($(PGO), YES)
 CFLAGS += -fprofile-generate=./profile
 LDFLAGS += -lgcov -fprofile-generate=./profile
 TARGET = bin/fceux_pm
-else ifeq ($(PROFILE), APPLY)
+else ifeq ($(PGO), APPLY)
 CFLAGS += -fprofile-use=./profile -fbranch-probabilities
 endif
 CFLAGS += -fno-strict-aliasing
@@ -266,7 +266,7 @@ all: $(TARGET)
 $(TARGET): $(OBJS)
 	@mkdir -p bin/
 	@echo Linking $@...
-	$(CXX) $(LDFLAGS) $(OBJS) -o $@
+	$(CXX) $(OBJS) -o $@  $(LDFLAGS)
 	$(STRIP) -s $@
 
 %.o: %.c
